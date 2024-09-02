@@ -18,7 +18,10 @@ instances = [
     "django__django-11141",
 ]
 
-explanations = [1, 2]
+explanation_list = [3, 1]
+
+for explanation in explanation_list:
+    print(explanation)
 
 for instance in instances:
     # get patch from instance
@@ -31,12 +34,12 @@ for instance in instances:
     # select correct instance
         # select correct explanation based on expl id
     
-    for expl_id in explanations:
-        for item in expl_data:
-            if item["instance_id"] == instance:
+    for item in expl_data:
+        if item["instance_id"] == instance:
+            for expl_id in explanation_list:
                 for explanation in item["explanations"]:
-                    if explanation["id"] == expl_id:
-                        print(f"Explanation {expl_id}:\n{explanation["content"]}\n")
-                        break
+                        if explanation["id"] == expl_id:
+                            print(f"Explanation {expl_id}:\n{explanation["content"]}\n")
+                            break
     
     
