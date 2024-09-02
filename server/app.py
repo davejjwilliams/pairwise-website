@@ -6,9 +6,6 @@ import json
 app = Flask(__name__)
 cors = CORS(app, origins="*")
 
-with open('strings.json') as f:
-    d = json.load(f)
-
 @app.route("/api/users", methods=["GET"])
 def users():
     time.sleep(2)
