@@ -4,7 +4,7 @@
     "explanations": [
       {
         "id": 1,
-        "content": "This patch explanation is for the sake of explaining that a change is made to the program and the change causes a drastic effect in the program behvaiour. Hopefully this explanation was useful in explaining this phenomenon."
+        "content": "This patch explanation is for the sake of explaining that a change is made to the program and the change causes a drastic effect in the program behvaiour.\n # Also Included\nThis is some text.\n ## Also Also Included\nHopefully this explanation was useful in explaining this phenomenon."
       },
       {
         "id": 2,

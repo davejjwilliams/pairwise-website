@@ -4,6 +4,7 @@ from typing import List, Tuple
 import time
 import json
 from pprint import pprint
+import random
 
 app = Flask(__name__)
 cors = CORS(app, origins="*")
@@ -35,24 +36,13 @@ def get_info(instance: str, ids: List[int]) -> Tuple[str, List[str]]:
     return patch, expls
 
 
-@app.route("/api/users", methods=["GET"])
-def users():
-    time.sleep(2)
-    return jsonify(
-        {
-            "users": [
-                "dave",
-                "williams",
-                "test",
-            ]
-        }
-    )
-
-
 @app.route("/api/patch", methods=["GET"])
 def patch():
-    time.sleep(2)
-    patch, expls = get_info("astropy__astropy-12907", [3, 1])
+    patch = random.choice(["astropy__astropy-12907", "django__django-11141"])
+    print(patch)
+    expl_ids = random.sample(range(1, 4), 2)
+    print(expl_ids)
+    patch, expls = get_info(patch, expl_ids)
     return jsonify(
         {
             "patch": patch,
