@@ -38,6 +38,7 @@ def get_info(instance: str, ids: List[int]) -> Tuple[str, List[str]]:
 
 @app.route("/api/patch", methods=["GET"])
 def patch():
+    time.sleep(2)
     patch = random.choice(["astropy__astropy-12907", "django__django-11141"])
     print(patch)
     expl_ids = random.sample(range(1, 4), 2)

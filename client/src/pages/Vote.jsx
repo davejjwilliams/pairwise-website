@@ -3,21 +3,30 @@ import axios from 'axios';
 import '../App.css';
 import Markdown from 'react-markdown';
 
-// TODO: Fix formatting
-// TODO: Wrap patch in horizontally scrollable element
-// TODO: Wrap explanations in markdown parser
 // TODO: Button functionality
 
 function Vote() {
   const [patch, setPatch] = useState('');
   const [explA, setExplA] = useState('');
   const [explB, setExplB] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [select, setSelect] = useState(-10);
 
   const fetchAPI = async () => {
+    setLoading(true);
     const response = await axios.get('/api/patch');
     setPatch(response.data.patch);
     setExplA(response.data.expls[0]);
     setExplB(response.data.expls[1]);
+    setLoading(false);
+  };
+
+  const submitPress = () => {
+    const selections = ['B', 'Tie', 'A'];
+    let s = selections[select + 1];
+    console.log('Selected ' + s);
+    setSelect(-10);
+    fetchAPI();
   };
 
   useEffect(() => {
@@ -27,7 +36,7 @@ function Vote() {
   return (
     <>
       <h1>Compare</h1>
-      {patch === '' ? (
+      {loading ? (
         'Loading...'
       ) : (
         <div className='comparison'>
@@ -42,7 +51,14 @@ function Vote() {
                 <Markdown>{explA}</Markdown>
               </div>
               <br />
-              <button>A is better</button>
+              <button
+                className={select === 1 ? 'active' : ''}
+                onClick={() => {
+                  setSelect(1);
+                }}
+              >
+                A is better
+              </button>
             </div>
             <div className='column'>
               <h3>Explanation B</h3>
@@ -50,10 +66,32 @@ function Vote() {
                 <Markdown>{explB}</Markdown>
               </div>
               <br />
-              <button>B is better</button>
+              <button
+                className={select === -1 ? 'active' : ''}
+                onClick={() => {
+                  setSelect(-1);
+                }}
+              >
+                B is better
+              </button>
             </div>
           </div>
-          <button>Tie</button>
+          <button
+            className={select === 0 ? 'active' : ''}
+            onClick={() => {
+              setSelect(0);
+            }}
+          >
+            Tie
+          </button>
+          <br />
+          <button
+            onClick={() => {
+              submitPress();
+            }}
+          >
+            Submit
+          </button>
         </div>
       )}
     </>

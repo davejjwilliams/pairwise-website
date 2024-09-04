@@ -37,6 +37,7 @@ nav {
 .code {
   color: #fff;
   font-family: 'Courier New', Courier, monospace;
+  overflow-x: scroll;
 }
 
 .row {
