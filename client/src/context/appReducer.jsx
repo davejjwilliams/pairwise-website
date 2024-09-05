@@ -1,4 +1,4 @@
-import { GET_INFO, SET_LOADING } from './types';
+import { GET_INFO, SET_LOADING, SET_COMPLETE } from './types';
 
 const AppReducer = (state, action) => {
   switch (action.type) {
@@ -14,6 +14,11 @@ const AppReducer = (state, action) => {
       return {
         ...state,
         loading: true
+      };
+    case SET_COMPLETE:
+      return {
+        ...state,
+        complete: true
       };
     default:
       return state;

@@ -2,16 +2,23 @@ import { useState, useEffect, useContext } from 'react';
 import '../App.css';
 import Markdown from 'react-markdown';
 import AppContext from '../context/appContext';
+import { useNavigate } from 'react-router-dom';
 
 // TODO: Button functionality
 
 function Vote() {
   const [select, setSelect] = useState(-10);
-
   const appContext = useContext(AppContext);
-
-  const { currentPatch, currentExplA, currentExplB, loading, getInfo } =
-    appContext;
+  const {
+    currentPatch,
+    currentExplA,
+    currentExplB,
+    loading,
+    complete,
+    getInfo,
+    setComplete
+  } = appContext;
+  const navigate = useNavigate();
 
   const submitPress = () => {
     const selections = ['B', 'Tie', 'A'];
@@ -24,6 +31,15 @@ function Vote() {
   useEffect(() => {
     getInfo();
   }, []);
+
+  useEffect(() => {
+    if (complete) {
+      alert(
+        'You have successfully completed the rankings for this set of explanations!'
+      );
+      navigate('/exit');
+    }
+  }, [complete]);
 
   return (
     <>
@@ -83,6 +99,14 @@ function Vote() {
             }}
           >
             Submit
+          </button>
+          <br />
+          <button
+            onClick={() => {
+              setComplete();
+            }}
+          >
+            Complete
           </button>
         </div>
       )}

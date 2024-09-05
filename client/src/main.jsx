@@ -12,12 +12,14 @@ import Intro from './pages/Intro.jsx';
 import Vote from './pages/Vote.jsx';
 import Layout from './pages/Layout.jsx';
 import AppState from './context/AppState.jsx';
+import ExitFeedback from './pages/ExitFeedback.jsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<Layout />}>
       <Route path='/' element={<Intro />} />
       <Route path='vote' element={<Vote />} />
+      <Route path='exit' element={<ExitFeedback />} />
     </Route>
   )
 );

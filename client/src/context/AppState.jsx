@@ -2,7 +2,7 @@ import { useReducer } from 'react';
 import AppReducer from './appReducer';
 import AppContext from './appContext';
 import axios from 'axios';
-import { GET_INFO, SET_LOADING } from './types';
+import { GET_INFO, SET_LOADING, SET_COMPLETE } from './types';
 
 function AppState(props) {
   const initialState = {
@@ -11,7 +11,8 @@ function AppState(props) {
     currentPatch: '',
     currentExplA: '',
     currentExplB: '',
-    loading: true
+    loading: true,
+    complete: false
   };
 
   function sample(arr, count) {
@@ -41,6 +42,8 @@ function AppState(props) {
 
   const setLoading = () => dispatch({ type: SET_LOADING });
 
+  const setComplete = () => dispatch({ type: SET_COMPLETE });
+
   return (
     <AppContext.Provider
       value={{
@@ -50,7 +53,9 @@ function AppState(props) {
         currentExplA: state.currentExplA,
         currentExplB: state.currentExplB,
         loading: state.loading,
-        getInfo
+        complete: state.complete,
+        getInfo,
+        setComplete
       }}
     >
       {props.children}
