@@ -10,6 +10,7 @@ function Vote() {
   const [select, setSelect] = useState(-10);
   const appContext = useContext(AppContext);
   const {
+    yoe,
     currentPatch,
     currentExplA,
     currentExplB,
@@ -29,6 +30,11 @@ function Vote() {
   };
 
   useEffect(() => {
+    console.log(yoe);
+    if (yoe === -1) {
+      navigate('/');
+    }
+
     getInfo();
   }, []);
 

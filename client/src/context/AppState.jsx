@@ -2,10 +2,13 @@ import { useReducer } from 'react';
 import AppReducer from './appReducer';
 import AppContext from './appContext';
 import axios from 'axios';
-import { GET_INFO, SET_LOADING, SET_COMPLETE } from './types';
+import { SET_DETAILS, GET_INFO, SET_LOADING, SET_COMPLETE } from './types';
 
 function AppState(props) {
   const initialState = {
+    title: '',
+    yoe: -1,
+    pyoe: -1,
     instanceId: '',
     ranking: [1, 2, 3],
     currentPatch: '',
@@ -21,6 +24,17 @@ function AppState(props) {
   }
 
   const [state, dispatch] = useReducer(AppReducer, initialState);
+
+  // Set user details
+  const setDetails = (title, yoe, pyoe) => {
+    const details = {
+      title: title,
+      yoe: yoe,
+      pyoe: pyoe
+    };
+
+    dispatch({ type: SET_DETAILS, payload: details });
+  };
 
   // Get Info
   const getInfo = async () => {
@@ -40,6 +54,20 @@ function AppState(props) {
     dispatch({ type: GET_INFO, payload: response.data });
   };
 
+  // Send ranking to server
+  const submitRanking = async fb => {
+    const response = await axios.post('/api/end', {
+      title: state.title,
+      yoe: state.yoe,
+      pyoe: state.pyoe,
+      instanceId: state.instanceId,
+      ranking: state.ranking,
+      feedback: fb
+    });
+
+    alert(response.data.success);
+  };
+
   const setLoading = () => dispatch({ type: SET_LOADING });
 
   const setComplete = () => dispatch({ type: SET_COMPLETE });
@@ -47,6 +75,9 @@ function AppState(props) {
   return (
     <AppContext.Provider
       value={{
+        title: state.title,
+        yoe: state.yoe,
+        pyoe: state.pyoe,
         instanceId: state.instanceId,
         ranking: state.ranking,
         currentPatch: state.currentPatch,
@@ -54,8 +85,11 @@ function AppState(props) {
         currentExplB: state.currentExplB,
         loading: state.loading,
         complete: state.complete,
+        feedback: state.feedback,
+        setDetails,
         getInfo,
-        setComplete
+        setComplete,
+        submitRanking
       }}
     >
       {props.children}

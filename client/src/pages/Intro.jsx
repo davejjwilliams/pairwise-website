@@ -1,16 +1,20 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../App.css';
+import AppContext from '../context/appContext';
 
 function Intro() {
   const [title, setTitle] = useState('');
   const [yoe, setYoe] = useState(0);
   const [pyoe, setPyoe] = useState(0);
   const navigate = useNavigate();
+  const appContext = useContext(AppContext);
+  const { setDetails } = appContext;
 
   const handleSubmit = event => {
     event.preventDefault();
     console.log(`${title} ${yoe} ${pyoe}`);
+    setDetails(title, yoe, pyoe);
     navigate('/vote');
   };
 

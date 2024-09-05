@@ -1,7 +1,14 @@
-import { GET_INFO, SET_LOADING, SET_COMPLETE } from './types';
+import { GET_INFO, SET_LOADING, SET_COMPLETE, SET_DETAILS } from './types';
 
 const AppReducer = (state, action) => {
   switch (action.type) {
+    case SET_DETAILS:
+      return {
+        ...state,
+        title: action.payload.title,
+        yoe: action.payload.yoe,
+        pyoe: action.payload.pyoe
+      };
     case GET_INFO:
       return {
         ...state,

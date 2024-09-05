@@ -56,5 +56,29 @@ def patch():
     )
 
 
+@app.route("/api/end", methods=["POST"])
+def end():
+    request_data = request.get_json()
+
+    title: str = request_data["title"]
+    yoe: str = request_data["yoe"]
+    pyoe: str = request_data["pyoe"]
+    instance: str = request_data["instanceId"]
+    ranking: List[int] = request_data["ranking"]
+    feedback: str = request_data["feedback"]
+
+    print(
+        f"Received Data!\ninstance={instance},\nranking={ranking},\nfeedback={feedback}"
+    )
+
+    # Store in Database
+
+    return jsonify(
+        {
+            "success": "You have successfully submitted!",
+        }
+    )
+
+
 if __name__ == "__main__":
     app.run(debug=True, port=8080)
