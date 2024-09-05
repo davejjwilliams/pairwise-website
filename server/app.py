@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from flask_cors import CORS
 from typing import List, Tuple
 import time
@@ -36,28 +36,22 @@ def get_info(instance: str, ids: List[int]) -> Tuple[str, List[str]]:
     return patch, expls
 
 
-@app.route("/api/patch", methods=["GET"])
+@app.route("/api/patch", methods=["POST"])
 def patch():
     time.sleep(2)
-    patch = random.choice(["astropy__astropy-12907", "django__django-11141"])
+    request_data = request.get_json()
+
+    patch: str = request_data["instanceId"]
+    expl_ids: List[int] = [int(request_data["idExplA"]), int(request_data["idExplB"])]
+
     print(patch)
-    expl_ids = random.sample(range(1, 4), 2)
     print(expl_ids)
+
     patch, expls = get_info(patch, expl_ids)
     return jsonify(
         {
             "patch": patch,
             "expls": expls,
-        }
-    )
-
-
-@app.route("/api/explanations", methods=["GET"])
-def explanations():
-    return jsonify(
-        {
-            "expl1": "This is explanation 1",
-            "expl2": "This is explanation 2",
         }
     )
 

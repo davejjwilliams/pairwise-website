@@ -14,7 +14,11 @@ function Vote() {
 
   const fetchAPI = async () => {
     setLoading(true);
-    const response = await axios.get('/api/patch');
+    const response = await axios.post('/api/patch', {
+      instanceId: 'astropy__astropy-12907',
+      idExplA: '1',
+      idExplB: '2'
+    });
     setPatch(response.data.patch);
     setExplA(response.data.expls[0]);
     setExplB(response.data.expls[1]);
@@ -35,7 +39,7 @@ function Vote() {
 
   return (
     <>
-      <h1>Compare</h1>
+      <h1 className='title'>Compare</h1>
       {loading ? (
         'Loading...'
       ) : (

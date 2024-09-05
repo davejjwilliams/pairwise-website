@@ -47,13 +47,14 @@ function Intro() {
         </label>
         <br />
         <label>
-          Enter your years of programming experience:
+          Enter your years of python programming experience:
           <input
             type='number'
             value={pyoe}
             onChange={e => setPyoe(e.target.value)}
           />
         </label>
+        <br />
         <input type='submit' value='Submit' />
       </form>
     </>
