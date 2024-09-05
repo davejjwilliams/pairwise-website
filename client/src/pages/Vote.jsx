@@ -1,58 +1,46 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useState, useEffect, useContext } from 'react';
 import '../App.css';
 import Markdown from 'react-markdown';
+import AppContext from '../context/appContext';
 
 // TODO: Button functionality
 
 function Vote() {
-  const [patch, setPatch] = useState('');
-  const [explA, setExplA] = useState('');
-  const [explB, setExplB] = useState('');
-  const [loading, setLoading] = useState(false);
   const [select, setSelect] = useState(-10);
 
-  const fetchAPI = async () => {
-    setLoading(true);
-    const response = await axios.post('/api/patch', {
-      instanceId: 'astropy__astropy-12907',
-      idExplA: '1',
-      idExplB: '2'
-    });
-    setPatch(response.data.patch);
-    setExplA(response.data.expls[0]);
-    setExplB(response.data.expls[1]);
-    setLoading(false);
-  };
+  const appContext = useContext(AppContext);
+
+  const { currentPatch, currentExplA, currentExplB, loading, getInfo } =
+    appContext;
 
   const submitPress = () => {
     const selections = ['B', 'Tie', 'A'];
     let s = selections[select + 1];
     console.log('Selected ' + s);
     setSelect(-10);
-    fetchAPI();
+    getInfo();
   };
 
   useEffect(() => {
-    fetchAPI();
+    getInfo();
   }, []);
 
   return (
     <>
       <h1 className='title'>Compare</h1>
       {loading ? (
-        'Loading...'
+        <div>Loading...</div>
       ) : (
         <div className='comparison'>
           <h2>Patch</h2>
           <div className='card code'>
-            <div className='display-linebreak'>{patch}</div>
+            <div className='display-linebreak'>{currentPatch}</div>
           </div>
           <div className='row'>
             <div className='column'>
               <h3>Explanation A</h3>
               <div className='card'>
-                <Markdown>{explA}</Markdown>
+                <Markdown>{currentExplA}</Markdown>
               </div>
               <br />
               <button
@@ -67,7 +55,7 @@ function Vote() {
             <div className='column'>
               <h3>Explanation B</h3>
               <div className='card'>
-                <Markdown>{explB}</Markdown>
+                <Markdown>{currentExplB}</Markdown>
               </div>
               <br />
               <button

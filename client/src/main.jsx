@@ -11,6 +11,7 @@ import {
 import Intro from './pages/Intro.jsx';
 import Vote from './pages/Vote.jsx';
 import Layout from './pages/Layout.jsx';
+import AppState from './context/AppState.jsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -23,7 +24,8 @@ const router = createBrowserRouter(
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <RouterProvider router={router} />
-    {/* <App /> */}
+    <AppState>
+      <RouterProvider router={router} />
+    </AppState>
   </StrictMode>
 );
