@@ -57,3 +57,11 @@ nav {
 .title {
   text-align: center;
 }
+
+.alert-banner {
+  
+  background-color: #842626;
+  border: 1pt solid #e94242;
+  border-radius: 4pt;
+  text-align: center;
+}

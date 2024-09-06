@@ -17,6 +17,8 @@ function Layout() {
 
       <hr />
 
+      <div className="alert-banner">NOTE: Please do not refresh the page at any point, or you will lose your ranking progress!</div>
+
       <Outlet />
     </div>
   );
