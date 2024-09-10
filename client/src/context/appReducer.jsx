@@ -1,4 +1,10 @@
-import { GET_INFO, SET_LOADING, SET_COMPLETE, SET_DETAILS } from './types';
+import {
+  GET_INFO,
+  SET_LOADING,
+  SET_RANKING,
+  SET_COMPLETE,
+  SET_DETAILS
+} from './types';
 
 const AppReducer = (state, action) => {
   switch (action.type) {
@@ -16,6 +22,11 @@ const AppReducer = (state, action) => {
         currentExplA: action.payload.expls[0],
         currentExplB: action.payload.expls[1],
         loading: false
+      };
+    case SET_RANKING:
+      return {
+        ...state,
+        ranking: action.payload
       };
     case SET_LOADING:
       return {

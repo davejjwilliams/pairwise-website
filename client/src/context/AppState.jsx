@@ -2,26 +2,27 @@ import { useReducer } from 'react';
 import AppReducer from './appReducer';
 import AppContext from './appContext';
 import axios from 'axios';
-import { SET_DETAILS, GET_INFO, SET_LOADING, SET_COMPLETE } from './types';
+import {
+  SET_DETAILS,
+  GET_INFO,
+  SET_RANKING,
+  SET_LOADING,
+  SET_COMPLETE
+} from './types';
 
 function AppState(props) {
   const initialState = {
     title: '',
     yoe: -1,
     pyoe: -1,
-    instanceId: '',
-    ranking: [1, 2, 3],
+    instanceId: 'astropy__astropy-12907', // Update
+    ranking: [1, 2, 3, 4, 5, 6],
     currentPatch: '',
     currentExplA: '',
     currentExplB: '',
     loading: true,
     complete: false
   };
-
-  function sample(arr, count) {
-    const scrambled = arr.sort(() => Math.random() - 0.5);
-    return scrambled.slice(0, count);
-  }
 
   const [state, dispatch] = useReducer(AppReducer, initialState);
 
@@ -37,18 +38,13 @@ function AppState(props) {
   };
 
   // Get Info
-  const getInfo = async () => {
+  const getInfo = async (idA, idB) => {
     setLoading();
 
-    const expls = [1, 2, 3];
-    const patches = ['astropy__astropy-12907', 'django__django-11141'];
-    const selected_patch = sample(patches, 1)[0];
-    const selected_expls = sample(expls, 2);
-
     const response = await axios.post('/api/patch', {
-      instanceId: selected_patch,
-      idExplA: selected_expls[0],
-      idExplB: selected_expls[1]
+      instanceId: state.instanceId,
+      idExplA: idA,
+      idExplB: idB
     });
 
     dispatch({ type: GET_INFO, payload: response.data });
@@ -67,6 +63,9 @@ function AppState(props) {
 
     alert(response.data.success);
   };
+
+  const setRanking = ranking =>
+    dispatch({ type: SET_RANKING, payload: ranking });
 
   const setLoading = () => dispatch({ type: SET_LOADING });
 
@@ -88,6 +87,7 @@ function AppState(props) {
         feedback: state.feedback,
         setDetails,
         getInfo,
+        setRanking,
         setComplete,
         submitRanking
       }}
