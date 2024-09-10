@@ -15,7 +15,7 @@ function AppState(props) {
     title: '',
     yoe: -1,
     pyoe: -1,
-    instanceId: 'astropy__astropy-12907', // Update
+    instanceId: '',
     ranking: [1, 2, 3, 4, 5, 6],
     currentPatch: '',
     currentExplA: '',
@@ -27,11 +27,12 @@ function AppState(props) {
   const [state, dispatch] = useReducer(AppReducer, initialState);
 
   // Set user details
-  const setDetails = (title, yoe, pyoe) => {
+  const setDetails = (title, yoe, pyoe, instanceId) => {
     const details = {
       title: title,
       yoe: yoe,
-      pyoe: pyoe
+      pyoe: pyoe,
+      instanceId: instanceId
     };
 
     dispatch({ type: SET_DETAILS, payload: details });

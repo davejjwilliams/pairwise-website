@@ -13,7 +13,8 @@ const AppReducer = (state, action) => {
         ...state,
         title: action.payload.title,
         yoe: action.payload.yoe,
-        pyoe: action.payload.pyoe
+        pyoe: action.payload.pyoe,
+        instanceId: action.payload.instanceId
       };
     case GET_INFO:
       return {

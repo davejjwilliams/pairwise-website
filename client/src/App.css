@@ -1,5 +1,5 @@
 #root {
-  max-width: 90%;
+  max-width: 80vw;
   margin: 0 auto;
   padding: 2rem;
   /* text-align: center; */
@@ -15,14 +15,6 @@ nav {
   display: inline;
 }
 
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
-
 .display-linebreak {
   white-space: pre;
 }
@@ -31,7 +23,6 @@ nav {
   background-color: #333;
   border-radius: 15pt;
   padding: 1em;
-  height: 70%;
 }
 
 .code {
@@ -49,7 +40,7 @@ nav {
   padding: 5pt;
 }
 
-.comparison button {
+button {
   display: block;
   margin: 0 auto;
 }
@@ -58,10 +49,29 @@ nav {
   text-align: center;
 }
 
-.alert-banner {
-  
-  background-color: #842626;
-  border: 1pt solid #e94242;
+.banner {
   border-radius: 4pt;
   text-align: center;
+}
+
+.alert {
+  background-color: #4c2f36;
+  border: 1pt solid #ff365b;
+}
+
+.warning {
+  background-color: #68582d;
+  border: 1pt solid #dfbd00;
+}
+
+.btn {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
 }

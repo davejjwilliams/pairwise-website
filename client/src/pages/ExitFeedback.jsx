@@ -15,25 +15,30 @@ function ExitFeedback() {
   };
 
   useEffect(() => {
-    if (!complete) {
-      alert('Please complete the ranking first!');
-      navigate('/vote');
-    }
+    // if (!complete) {
+    //   alert('Please complete the ranking first!');
+    //   navigate('/vote');
+    // }
   }, []);
 
   return (
     <div>
-      <h1>ExitFeedback</h1>
+      <h1>Exit Feedback</h1>
       <p>
-        Thank you for completing the ranking. Could you please provide a brief
-        description (2-3 sentences/points) of how you picked the best prompts.
-        This could be how you prioritised length over correctness, etc. etc.
+        Thank you for completing the ranking! Before submitting, could you
+        please provide a brief description (2-3 sentences/points) of how you
+        picked the best prompts? This could be how you prioritised length over
+        correctness, etc. etc.
       </p>
       <form onSubmit={handleSubmit}>
-        <label>Enter your title:</label>
+        <label>Enter:</label>
         <br />
         <textarea
           value={feedback}
+          style={{
+            width: '50vw',
+            height: '10vh'
+          }}
           onChange={e => setFeedback(e.target.value)}
         />
         <br />

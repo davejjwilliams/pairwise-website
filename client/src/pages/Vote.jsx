@@ -4,8 +4,6 @@ import Markdown from 'react-markdown';
 import AppContext from '../context/appContext';
 import { useNavigate } from 'react-router-dom';
 
-// TODO: Button functionality
-
 function Vote() {
   const [selection, setSelection] = useState(-10);
   const [comparisons, setComparisons] = useState([]);
@@ -139,7 +137,7 @@ function Vote() {
 
   return (
     <>
-      <h1 className='title'>Compare</h1>
+      <h1 className='title'>Compare ⚖️</h1>
       {loading ? (
         <div>Loading...</div>
       ) : (
@@ -154,55 +152,54 @@ function Vote() {
               <div className='card'>
                 <Markdown>{currentExplA}</Markdown>
               </div>
-              <br />
-              <button
-                className={selection === -1 ? 'active' : ''}
-                onClick={() => {
-                  setSelection(-1);
-                }}
-              >
-                A is better
-              </button>
             </div>
             <div className='column'>
               <h3>Explanation B</h3>
               <div className='card'>
                 <Markdown>{currentExplB}</Markdown>
               </div>
-              <br />
+            </div>
+          </div>
+          <div className='row'>
+            <div className='column'>
+              <button
+                className={selection === -1 ? 'active' : ''}
+                onClick={() => {
+                  setSelection(-1);
+                }}
+              >
+                A is better 👆
+              </button>
+            </div>
+            <div className='column'>
+              <button
+                className={selection === 0 ? 'active' : ''}
+                onClick={() => {
+                  setSelection(0);
+                }}
+              >
+                Tie ⚖️
+              </button>
+            </div>
+            <div className='column'>
               <button
                 className={selection === 1 ? 'active' : ''}
                 onClick={() => {
                   setSelection(1);
                 }}
               >
-                B is better
+                👆 B is better
               </button>
             </div>
           </div>
-          <button
-            className={selection === 0 ? 'active' : ''}
-            onClick={() => {
-              setSelection(0);
-            }}
-          >
-            Tie
-          </button>
+
           <br />
           <button
             onClick={() => {
               submitPress();
             }}
           >
-            Submit
-          </button>
-          <br />
-          <button
-            onClick={() => {
-              setComplete();
-            }}
-          >
-            Complete
+            Submit ✔️
           </button>
         </div>
       )}
