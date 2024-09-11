@@ -18,18 +18,48 @@ app.post(
   '/api/patch',
   [
     check('instanceId', 'instanceId is required').not().isEmpty(),
-    check('explA', 'explA is required').not().isEmpty(),
-    check('explB', 'explB is required').not().isEmpty()
+    check('idExplA', 'idExplA is required').not().isEmpty(),
+    check('idExplB', 'idExplB is required').not().isEmpty()
   ],
   (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
-    // TODO: Complete
-    res.json({
-      msg: 'Retrieve patch and explanations from static JSON database.'
-    });
+
+    const { instanceId, idExplA, idExplB } = req.body;
+
+    // get data from json files
+    let patch = '';
+    let explIds = [idExplA, idExplB];
+    let expls = [];
+
+    for (let i = 0; i <= sweData.length; i++) {
+      if (sweData[i]['instance_id'] === instanceId) {
+        patch = sweData[i].patch;
+        break;
+      }
+    }
+
+    for (let i = 0; i < explData.length; i++) {
+      if (explData[i]['instance_id'] === instanceId) {
+        for (let j = 0; j < explIds.length; j++) {
+          for (let k = 0; k < explData[i]['explanations'].length; k++) {
+            if (explData[i]['explanations'][k]['id'] === explIds[j]) {
+              expls.push(explData[i]['explanations'][k]['content']);
+              break;
+            }
+          }
+        }
+      }
+    }
+
+    let out = {
+      patch,
+      expls
+    };
+
+    res.json(out);
   }
 );
 
