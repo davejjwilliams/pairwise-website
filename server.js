@@ -1,4 +1,6 @@
 const express = require('express');
+const sweData = require('./dataset-verified.json');
+const explData = require('./patch-explanations.json');
 
 const app = express();
 
