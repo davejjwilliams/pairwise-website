@@ -3,7 +3,8 @@ import {
   SET_LOADING,
   SET_RANKING,
   SET_COMPLETE,
-  SET_DETAILS
+  SET_DETAILS,
+  SET_SUBMITTED
 } from './types';
 
 const AppReducer = (state, action) => {
@@ -38,6 +39,11 @@ const AppReducer = (state, action) => {
       return {
         ...state,
         complete: true
+      };
+    case SET_SUBMITTED:
+      return {
+        ...state,
+        submitted: true
       };
     default:
       return state;
