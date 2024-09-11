@@ -7,7 +7,8 @@ import {
   GET_INFO,
   SET_RANKING,
   SET_LOADING,
-  SET_COMPLETE
+  SET_COMPLETE,
+  SET_SUBMITTED
 } from './types';
 
 function AppState(props) {
@@ -21,7 +22,8 @@ function AppState(props) {
     currentExplA: '',
     currentExplB: '',
     loading: true,
-    complete: false
+    complete: false,
+    submitted: false
   };
 
   const [state, dispatch] = useReducer(AppReducer, initialState);
@@ -52,17 +54,17 @@ function AppState(props) {
   };
 
   // Send ranking to server
-  const submitRanking = async fb => {
+  const submitRanking = async desc => {
     const response = await axios.post('/api/end', {
-      title: state.title,
-      yoe: state.yoe,
-      pyoe: state.pyoe,
       instanceId: state.instanceId,
       ranking: state.ranking,
-      feedback: fb
+      description: desc,
+      title: state.title,
+      yoe: state.yoe,
+      pyoe: state.pyoe
     });
 
-    alert(response.data.success);
+    setSubmitted();
   };
 
   const setRanking = ranking =>
@@ -71,6 +73,8 @@ function AppState(props) {
   const setLoading = () => dispatch({ type: SET_LOADING });
 
   const setComplete = () => dispatch({ type: SET_COMPLETE });
+
+  const setSubmitted = () => dispatch({ type: SET_SUBMITTED });
 
   return (
     <AppContext.Provider
@@ -85,7 +89,7 @@ function AppState(props) {
         currentExplB: state.currentExplB,
         loading: state.loading,
         complete: state.complete,
-        feedback: state.feedback,
+        submitted: state.submitted,
         setDetails,
         getInfo,
         setRanking,

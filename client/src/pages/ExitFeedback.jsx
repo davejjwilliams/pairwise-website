@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 function ExitFeedback() {
   const appContext = useContext(AppContext);
   const navigate = useNavigate();
-  const { complete, submitRanking } = appContext;
+  const { complete, submitted, submitRanking } = appContext;
   const [feedback, setFeedback] = useState('');
 
   const handleSubmit = event => {
@@ -15,11 +15,17 @@ function ExitFeedback() {
   };
 
   useEffect(() => {
-    // if (!complete) {
-    //   alert('Please complete the ranking first!');
-    //   navigate('/vote');
-    // }
+    if (!complete) {
+      alert('Please complete the ranking first!');
+      navigate('/vote');
+    }
   }, []);
+
+  useEffect(() => {
+    if (submitted) {
+      navigate('/thanks');
+    }
+  }, [submitted]);
 
   return (
     <div>

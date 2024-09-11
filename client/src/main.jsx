@@ -13,6 +13,7 @@ import Vote from './pages/Vote.jsx';
 import Layout from './pages/Layout.jsx';
 import AppState from './context/AppState.jsx';
 import ExitFeedback from './pages/ExitFeedback.jsx';
+import Thanks from './pages/Thanks.jsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -20,6 +21,7 @@ const router = createBrowserRouter(
       <Route path='/' element={<Intro />} />
       <Route path='vote' element={<Vote />} />
       <Route path='exit' element={<ExitFeedback />} />
+      <Route path='thanks' element={<Thanks />} />
     </Route>
   )
 );
