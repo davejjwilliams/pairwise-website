@@ -3,8 +3,8 @@ const connectDB = require('./config/db');
 const { check, validationResult } = require('express-validator');
 const path = require('path');
 
-const sweData = require('./dataset-verified.json');
-const explData = require('./patch-explanations.json');
+const sweData = require('./data/dataset-verified.json');
+const explData = require('./data/patch-explanations.json');
 
 const app = express();
 
