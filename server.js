@@ -26,6 +26,7 @@ app.post(
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
+    // TODO: Complete
     res.json({
       msg: 'Retrieve patch and explanations from static JSON database.'
     });
@@ -42,14 +43,33 @@ app.post(
     check('yoe', 'yoe is required').not().isEmpty(),
     check('pyoe', 'pyoe is required').not().isEmpty()
   ],
-  (req, res) => {
+  async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
-    res.json({
-      msg: 'Update databse with user ranking for explanations & their information.'
-    });
+
+    const { instanceId, ranking, description, title, yoe, pyoe } = req.body;
+
+    try {
+      let submission = new Submission({
+        instanceId,
+        ranking,
+        description,
+        title,
+        yoe,
+        pyoe
+      });
+
+      await submission.save();
+
+      res.send(
+        'Updated databse with user ranking for explanations & their information.'
+      );
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Server Error');
+    }
   }
 );
 
